@@ -1,24 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useSelector } from 'react-redux';
+import { HangmanState } from './store/reducers';
+import { Start } from './pages/Start';
+import { Play } from './pages/Play';
+import { Highscores } from './pages/Highscores';
 
 function App() {
+  const store = useSelector((state: any) => state.hangman as HangmanState);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container d-flex flex-column justify-content-center align-items-center pt-5">
+      {store.gamePhase === 'START' && <Start />}
+      {store.gamePhase === 'PLAY' && <Play />}
+      {store.gamePhase === 'HIGHSCORES' && <Highscores />}
     </div>
   );
 }
